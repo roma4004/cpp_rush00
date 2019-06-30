@@ -33,9 +33,6 @@ static void		init_all()
 
 int main()
 {
-//	_is_pressed_q		= false;
-//	_is_pressed_space   = false;
-	srand(static_cast<unsigned int>(time(nullptr)));
     Observer obs;
     NPC player(10, 0, 10, 2, 1, 'P', 25, 25);
     std::list<NPC*> objects;
