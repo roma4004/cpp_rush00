@@ -6,7 +6,7 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 22:05:10 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 15:48:29 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 21:32:10 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <string>
 #include <ncurses.h>
 #include <unistd.h>
+
 #include "Observer.hpp"
 
 class NPC
@@ -43,22 +44,17 @@ public:
 	~NPC();
 	t_vec_fl	pos;
 	char		randomDir();
-	void		display(WINDOW *win);
+//	void		display(WINDOW *win);
 	char		fraction;
 	void 		move(std::list<NPC*> objects, int y, int x);
 	char		_direction;
 	float		speed_bullet;
 	float		speed;
-	void tik(char a);
-	protected:
 
+protected:
 	unsigned	hp;
 	unsigned	armor;
 	unsigned	ammunition;
-
-
-
-
 
 
 
