@@ -38,21 +38,31 @@ int main()
     Observer obs;
     NPC player(10, 0, 10, 2, 1, 'P', 25, 25, obs);
     std::list<NPC> objects;
+
     objects.push_back(player);
-    for (int j = 10; j < 10; ++j) {
-        objects.push_back(*(new NPC(10, 0, 10, 2, 1, 'E', 25, 25, obs)));
+    for (int j = 0; j < 10; ++j) {
+        objects.push_back(*(new NPC(10, 0, 10, 2, 1, 'E', j + 1, j + 1, obs)));
     }
     bool shouldQuit = false;
     char ch;
     int i = -1;
 	//raw();	//put on screen all input include control keys like [ctrl]+[c]
     init_all();
-    int y,x ;
+    int y, x;
 	getmaxyx(stdscr, y, x);
-    WINDOW *win = newwin(0,0,y,x);
+    WINDOW *win = newwin(0,0,0,0);
     refresh();
     while (!shouldQuit) {
-      //  obs.event_handler();
+    	box(win,0, 0);
+		for (std::list<NPC>::iterator ptr = objects.begin();
+			ptr != objects.end(); ptr++) {
+			mvwprintw(win, ptr->pos.y, ptr->pos.x, "@%d", x);
+		}
+    	wrefresh(win);
+		if ((ch = getch() == 'q')) {
+			endwin();
+			return (0);
+		}
 	}
 
 }
