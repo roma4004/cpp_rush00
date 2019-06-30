@@ -6,7 +6,7 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 22:05:06 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 12:11:35 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 14:05:55 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ NPC::NPC(unsigned hp, unsigned armor, unsigned ammo,
 	this->speed = speed_npc;
 	this->fraction = fract;
 
-	this->pos = (t_vec_int){ x, y };
+	this->pos = (t_vec_fl){ x, y };
 
 	map[y][x] = 2;
 	print_map();
@@ -37,33 +37,25 @@ NPC::~NPC()
 	std::cout << "NPC deleted!" << std::endl;
 }
 
-void NPC::move(float b_x, float b_y)
+void NPC::move()
 {
-	map[pos.x][pos.y] = 0;
-	pos = (t_vec_int){ (int)b_x, (int)b_y };
-	map[pos.x][pos.y] = 2;
-}
+	t_vec_fl offset = (t_vec_fl){ 0, 0 };
 
-void NPC::rotate(char dir)
-{
-	if (this->direction != dir) {
-		this->direction = dir;
-	}
-	else{
-		switch (dir){
-		case 'w': if (!map[pos.y - 1][pos.x]) move(pos.y - 1, pos.x); break;
-		case 'a': if (!map[pos.y][pos.x - 1]) move(pos.y, pos.x - 1); break;
-		case 's': if (!map[pos.y + 1][pos.x]) move(pos.y + 1, pos.x); break;
-		case 'd': if (!map[pos.y][pos.x + 1]) move(pos.y, pos.x + 1); break;
-		default: std::cout << "invalid direction" << std::endl;
-		}
-	}
-	
+	if (obs->is_pressed_up		) offset.y -= speed;
+	if (obs->is_pressed_left	) offset.x -= speed;
+	if (obs->is_pressed_right	) offset.y += speed;
+	if (obs->is_pressed_down	) offset.x += speed;
+
+	pos = (t_vec_fl){ .x = pos.x + offset.x,
+					  .y = pos.y + offset.y };
+//	map[pos.x][pos.y] = 0;
+//	pos = (t_vec_int){(int)b_x, (int)b_y};
+//	map[pos.x][pos.y] = 2;
 }
 
 void NPC::tik(char dir)
 {
-	rotate(dir);
+	move();
 }
 
 void NPC::takeDamage(unsigned int damage)
@@ -88,4 +80,14 @@ void NPC::takeDamage(unsigned int damage)
 void NPC::display()
 {
 	//output to canvas
+}
+
+void NPC::shot(char where_dir)
+{
+	//create new instance of bullet(speed_bullet)
+}
+
+void NPC::die()
+{
+	//self destruction
 }

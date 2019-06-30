@@ -6,7 +6,7 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 22:05:10 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 12:26:03 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 14:05:55 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <string>
 #include <ncurses.h>
 #include <unistd.h>
+#include "Observer.hpp"
 
 #define WIDTH 50
 #define HEIGHT 50
@@ -43,34 +44,30 @@ class NPC
 	}				t_vec_int;
 
 	typedef struct	s_vector_float {
-		int x;
-		int y;
+		float x;
+		float y;
 	}				t_vec_fl;
 
 
-
-
-	t_vec_int	pos;
+	Observer	*obs;
+	t_vec_fl	pos;
 	unsigned	hp;
 	unsigned	armor;
 	unsigned	ammunition;
 
-	float		speed_bulet;
+	float		speed_bullet;
 	float		speed;
 
 	char		fraction;
-	char		direction;
+	char		_direction;
 
 	bool		is_obstacle;
 	bool		invinsible;
 	bool		speed_boost;
 	bool		autopilote;
 
-
-
-	void		move(float b_x,float b_y);
-	void		rotate(char dir);
-	void		shot(char where);
+	void		move();
+	void		shot(char where_dir);
 	void		die();
 	void		takeDamage(unsigned int damage);
 	void		display();
