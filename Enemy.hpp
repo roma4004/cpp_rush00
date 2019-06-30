@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Observer.hpp                                       :+:      :+:    :+:   */
+/*   Enemy.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/30 12:26:09 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 16:53:53 by dromanic         ###   ########.fr       */
+/*   Created: 2019/06/30 16:45:55 by dromanic          #+#    #+#             */
+/*   Updated: 2019/06/30 16:55:59 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBSERVER_HPP
-#define OBSERVER_HPP
+#ifndef ENEMY_HPP
+#define ENEMY_HPP
 
-#include <list>
-#include <iterator>
+
 #include "NPC.hpp"
-#include "Enemy.hpp"
-#include "Player.hpp"
 
-
-class Observer
+class Enemy : public NPC
 {
-
-public:
-
-	bool			is_game_over;
-
-	void			event_handler();
-	void			game_cycle();
-
+	void move();
 };
 
 
-#endif //OBSERVER_HPP
+#endif //ENEMY_HPP

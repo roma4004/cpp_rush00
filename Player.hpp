@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Observer.hpp                                       :+:      :+:    :+:   */
+/*   Player.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/30 12:26:09 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 16:53:53 by dromanic         ###   ########.fr       */
+/*   Created: 2019/06/30 16:40:21 by dromanic          #+#    #+#             */
+/*   Updated: 2019/06/30 17:14:34 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBSERVER_HPP
-#define OBSERVER_HPP
 
-#include <list>
-#include <iterator>
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
+
 #include "NPC.hpp"
-#include "Enemy.hpp"
-#include "Player.hpp"
 
-
-class Observer
+class Player : public NPC
 {
+	bool		_is_pressed_up;
+	bool		_is_pressed_left;
+	bool		_is_pressed_right;
+	bool		_is_pressed_down;
+	bool		_is_pressed_space;
 
-public:
-
-	bool			is_game_over;
-
-	void			event_handler();
-	void			game_cycle();
-
+	void		clear_events();
+	void		move();
 };
 
 
-#endif //OBSERVER_HPP
+	bool		_is_pressed_q;
+#endif //PLAYER_HPP

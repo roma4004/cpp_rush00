@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Observer.hpp                                       :+:      :+:    :+:   */
+/*   Enemy.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/30 12:26:09 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 16:53:53 by dromanic         ###   ########.fr       */
+/*   Created: 2019/06/30 16:54:25 by dromanic          #+#    #+#             */
+/*   Updated: 2019/06/30 16:59:03 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBSERVER_HPP
-#define OBSERVER_HPP
-
-#include <list>
-#include <iterator>
-#include "NPC.hpp"
 #include "Enemy.hpp"
-#include "Player.hpp"
 
-
-class Observer
+void Enemy::move()
 {
+	t_vec_fl offset = (t_vec_fl){ 0, 0 };
 
-public:
+	switch (randomDir())
+	{
+		case 'w': offset.y -= speed; break;
+		case 'a': offset.x -= speed; break;
+		case 's': offset.y += speed; break;
+		case 'd': offset.x += speed; break;
+	}
+	pos = (t_vec_fl){	.x = pos.x + offset.x,
+						.y = pos.y + offset.y };
 
-	bool			is_game_over;
-
-	void			event_handler();
-	void			game_cycle();
-
-};
-
-
-#endif //OBSERVER_HPP
+	//random chose direct
+}

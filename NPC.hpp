@@ -6,7 +6,7 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 22:05:10 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 15:48:29 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 16:59:03 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@
 #include <string>
 #include <ncurses.h>
 #include <unistd.h>
+
+#include <ctime>
+
 #include "Observer.hpp"
 
 class NPC
 {
-private:
+protected:
 	typedef struct	s_vector_integer {
 		int x;
 		int y;
@@ -48,27 +51,27 @@ public:
 	void tik(char a);
 	protected:
 
-	unsigned	hp;
-	unsigned	armor;
-	unsigned	ammunition;
+	unsigned			hp;
+	unsigned			armor;
+	unsigned			ammunition;
 
-	float		speed_bullet;
-	float		speed;
+	float				speed_bullet;
+	float				speed;
 
 
-	char		_direction;
+	char				_direction;
 
-	bool		is_obstacle;
-	bool		invinsible;
-	bool		speed_boost;
-	bool		autopilote;
+	bool				is_obstacle;
+	bool				invinsible;
+	bool				speed_boost;
+	bool				autopilote;
 
-	void		move();
-	void		moveAI();
-	void		shot();
-	void		die();
-	void		takeDamage(unsigned int damage);
-	void		display();
+	char				randomDir();
+	virtual void		move() = 0;
+	void				shot();
+	void				die();
+	void				takeDamage(unsigned int damage);
+	void				display();
 };
 
 

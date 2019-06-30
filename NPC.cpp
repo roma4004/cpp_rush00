@@ -6,7 +6,7 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 22:05:06 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 16:06:48 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 16:57:30 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,16 @@ NPC::~NPC()
 	std::cout << "NPC deleted!" << std::endl;
 }
 
+char	NPC::randomDir()
+{
+	char variants[4] = { 'w', 'a', 's', 'd' };
+	return (variants[rand() % 4]);
 
-void NPC::moveAI()
+}
+void NPC::move()
 {
 
 }
-/*
-void NPC::move()
-{
-	t_vec_fl offset = (t_vec_fl){ 0, 0 };
-	if (fraction == 'P')
-	{
-		if (_obs->isPressedUp())		offset.y -= speed;
-		if (_obs->isPressedLeft())		offset.x -= speed;
-		if (_obs->isPressedRight())		offset.y += speed;
-		if (_obs->isPressedDown())		offset.x += speed;
-	}else
-		moveAI();
-
-	pos = (t_vec_fl){ .x = pos.x + offset.x,
-					  .y = pos.y + offset.y };
-//	map[pos.x][pos.y] = 0;
-//	pos = (t_vec_int){(int)b_x, (int)b_y};
-//	map[pos.x][pos.y] = 2;
-}*/
 
 void NPC::tik(char dir)
 {
