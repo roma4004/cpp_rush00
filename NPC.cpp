@@ -26,8 +26,6 @@ NPC::NPC(unsigned hp, unsigned armor, unsigned ammo,
 
 	this->pos = (t_vec_fl){ x, y };
 
-	map[y][x] = 2;
-	print_map();
 
 	std::cout << "NPC created!" << std::endl;
 }

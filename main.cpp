@@ -1,5 +1,8 @@
 #include "NPC.hpp"
 #include "Observer.hpp"
+#include <list>
+#include <iterator>
+#include "Screen.hpp"
 
 #define SLEEP(milliseconds) usleep( (unsigned long)(milliseconds * 1000.0) )
 
@@ -33,18 +36,21 @@ static void		init_all()
 int main()
 {
 	init_all();
-	print_map();
-	NPC player(10, 0, 10, 2, 1, 'P', 25, 25);
-	print_map();
-	return (0);
+    Screen e;
+    env(&e);
+    NPC player(10, 0, 10, 2, 1, 'P', 25, 25);
+    std::list<NPC> objects;
+    objects.push_back(player);
 
+    bool shouldQuit = false;
+    int ch;
+
+    WINDOW * win = newwin(3, 10, LINES / 2 - 2, COLS / 2 - 5);
 
 	//raw();	//put on screen all input include control keys like [ctrl]+[c]
 
-	while (1)
-	{
-		SLEEP( 100 );
-		//printw("Exit: q\n");
+    while (!shouldQuit) {
+
 
 		system("clear");
 		print_map();
@@ -52,7 +58,7 @@ int main()
 		//getch();			
 	}
 
-	endwin();
-	exit(1);
-	//return 0;
+    }
+
+
 }

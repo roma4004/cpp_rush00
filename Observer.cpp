@@ -19,6 +19,7 @@ void		Observer::clear_events()
 	_is_pressed_right	= false;
 	_is_pressed_down	= false;
 	_is_pressed_q		= false;
+	_is_pressed_space   = false;
 }
 
 void		Observer::game_cycle()
@@ -62,6 +63,7 @@ void		Observer::event_handler()
 		case 'a': _is_pressed_left	= true; break;
 		case 's': _is_pressed_right	= true; break;
 		case 'd': _is_pressed_down	= true; break;
+		case ' ': _is_pressed_space	= true; break;
 		case 'q': _is_pressed_q		= true; break;
 		default : std::cout << "warning: unknown key " << ch << std::endl;
 	}

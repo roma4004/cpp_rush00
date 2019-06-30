@@ -20,15 +20,16 @@ class Observer
 public:
 	bool		is_game_over;
 
-	bool		is_pressed_up;
-	bool		is_pressed_left;
-	bool		is_pressed_right;
-	bool		is_pressed_down;
-	bool		is_pressed_q;
+	bool		s_pressed_up;
+	bool		s_pressed_left;
+	bool		s_pressed_right;
+	bool		s_pressed_down;
+	bool		s_pressed_q;
+	bool        s_pressed_space;
+
 
 	void		event_handler();
 	void		game_cycle();
-
 };
 
 
