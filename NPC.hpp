@@ -6,7 +6,7 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 22:05:10 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 14:05:55 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 15:48:29 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ public:
 	NPC(unsigned hp, unsigned armor, unsigned ammo,
 		float speed_b, float speed_npc, char fract, int x, int y, Observer);
 	~NPC();
+
 	t_vec_fl	pos;
 
 	void tik(char a);
 	protected:
 
-
-	Observer	*_obs;
+	Observer*	_obs;
 	unsigned	hp;
 	unsigned	armor;
 	unsigned	ammunition;
@@ -63,7 +63,8 @@ public:
 	bool		autopilote;
 
 	void		move();
-	void		shot(char where_dir);
+	void		moveAI();
+	void		shot();
 	void		die();
 	void		takeDamage(unsigned int damage);
 	void		display();

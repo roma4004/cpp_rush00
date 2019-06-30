@@ -6,7 +6,7 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 22:05:06 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 16:06:39 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 16:06:48 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ NPC::NPC(unsigned hp, unsigned armor, unsigned ammo,
 	this->fraction = fract;
 
 	this->pos = (t_vec_fl){ x, y };
-
 
 	std::cout << "NPC created!" << std::endl;
 }
