@@ -11,16 +11,17 @@
 /* ************************************************************************** */
 
 #include "NPC.hpp"
-#include "main.cpp"
+#include "Observer.hpp"
 
 NPC::NPC(unsigned hp, unsigned armor, unsigned ammo,
-			float speed_b, float speed_npc, char fract, int x, int y)
+			float speed_b, float speed_npc, char fract, int x, int y, Observer obs)
 {
 	this->hp = hp;
 	this->armor = armor;
+    this->_obs = &obs;
 
 	this->ammunition = ammo;
-	this->speed_bulet = speed_b;
+	this->speed_bullet = speed_b;
 	this->speed = speed_npc;
 	this->fraction = fract;
 
@@ -34,15 +35,15 @@ NPC::~NPC()
 {
 	std::cout << "NPC deleted!" << std::endl;
 }
-
+/*
 void NPC::move()
 {
 	t_vec_fl offset = (t_vec_fl){ 0, 0 };
 
-	if (obs->is_pressed_up		) offset.y -= speed;
-	if (obs->is_pressed_left	) offset.x -= speed;
-	if (obs->is_pressed_right	) offset.y += speed;
-	if (obs->is_pressed_down	) offset.x += speed;
+	if (obs->isPressedUp()		) offset.y -= speed;
+	if (obs->isPressedLeft()	) offset.x -= speed;
+	if (obs->isPressedRight()	) offset.y += speed;
+	if (obs->isPressedDown()	) offset.x += speed;
 
 	pos = (t_vec_fl){ .x = pos.x + offset.x,
 					  .y = pos.y + offset.y };
@@ -50,10 +51,10 @@ void NPC::move()
 //	pos = (t_vec_int){(int)b_x, (int)b_y};
 //	map[pos.x][pos.y] = 2;
 }
-
+*/
 void NPC::tik(char dir)
 {
-	move();
+	//move();
 }
 
 void NPC::takeDamage(unsigned int damage)

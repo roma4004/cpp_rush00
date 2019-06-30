@@ -35,30 +35,25 @@ static void		init_all()
 
 int main()
 {
-	init_all();
-    Screen e;
-    env(&e);
-    NPC player(10, 0, 10, 2, 1, 'P', 25, 25);
+    Observer obs;
+    NPC player(10, 0, 10, 2, 1, 'P', 25, 25, obs);
     std::list<NPC> objects;
     objects.push_back(player);
-
+    for (int j = 10; j < 10; ++j) {
+        objects.push_back(*(new NPC(10, 0, 10, 2, 1, 'E', 25, 25, obs)));
+    }
     bool shouldQuit = false;
-    int ch;
-
-    WINDOW * win = newwin(3, 10, LINES / 2 - 2, COLS / 2 - 5);
-
+    char ch;
+    int i = -1;
 	//raw();	//put on screen all input include control keys like [ctrl]+[c]
-
+    init_all();
+    int y,x ;
+	getmaxyx(stdscr, y, x);
+    WINDOW *win = newwin(0,0,y,x);
+    refresh();
     while (!shouldQuit) {
-
-
-		system("clear");
-		print_map();
-		//refresh();			//one time per tick
-		//getch();			
+      //  obs.event_handler();
 	}
 
-    }
-
-
 }
+

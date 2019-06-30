@@ -14,12 +14,12 @@
 
 void		Observer::clear_events()
 {
-	_is_pressed_up		= false;
-	_is_pressed_left	= false;
-	_is_pressed_right	= false;
-	_is_pressed_down	= false;
-	_is_pressed_q		= false;
-	_is_pressed_space   = false;
+	pressed_up		= false;
+	pressed_left	= false;
+	pressed_right	= false;
+	pressed_down	= false;
+	pressed_q		= false;
+	pressed_space   = false;
 }
 
 void		Observer::game_cycle()
@@ -69,3 +69,20 @@ void		Observer::event_handler()
 	}
 	event_resolver();
 }
+
+bool Observer::isPressedUp() const {
+    return pressed_up;
+}
+
+bool Observer::isPressedLeft() const {
+    return pressed_left;
+}
+
+bool Observer::isPressedRight() const {
+    return pressed_right;
+}
+
+bool Observer::isPressedDown() const {
+    return pressed_down;
+}
+

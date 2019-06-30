@@ -23,11 +23,12 @@
 #include "Observer.hpp"
 
 
+
 class NPC
 {
 	public: 
 	NPC(unsigned hp, unsigned armor, unsigned ammo,
-		float speed_b, float speed_npc, char fract, int x, int y);
+		float speed_b, float speed_npc, char fract, int x, int y, Observer);
 	~NPC();
 
 
@@ -45,7 +46,7 @@ class NPC
 	}				t_vec_fl;
 
 
-	Observer	*obs;
+	Observer	*_obs;
 	t_vec_fl	pos;
 	unsigned	hp;
 	unsigned	armor;
