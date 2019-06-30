@@ -53,7 +53,7 @@ int main()
 	WINDOW *win = newwin(0,0,0,0);
 	int y_max, x_max;
 	getmaxyx(stdscr, y_max, x_max);
-    for (int j = 0; j < 50; ++j) {
+    for (int j = 0; j < 1; ++j) {
         objects.push_back(new NPC(10, 0, 10, 2, 1, 'E',
         		 rand() % x_max - 3 + 1,
         		rand() % (y_max / 5) + 1, 's'));
@@ -123,7 +123,7 @@ int main()
 				if (obs._Bullets >= 0)
 				{
 					objects.push_back(new NPC(1, 0, 0, player.speed, player.speed_bullet, 'p',
-											  player.pos.x, player.pos.y, player._direction));
+											  player.pos.x, player.pos.y - 1, player._direction));
 					obs._Bullets--;
 				}
 			}
@@ -132,11 +132,38 @@ int main()
 		for (std::list<NPC *>::iterator first_npc = objects.begin();
 			 first_npc != objects.end(); first_npc++)
 		{
+			if ((*first_npc)->pos.x == player.pos.x && (*first_npc)->pos.y == player.pos.y
+			&& (*first_npc)->fraction != player.fraction)
+			{
+				obs._HP--;
+				if (obs._HP == 0)
+				{
+					endwin();
+					return (0);
+				}
+				objects.erase(first_npc);
+			}
+		}
+		for (std::list<NPC *>::iterator first_npc = objects.begin();
+			 first_npc != objects.end(); first_npc++)
+		{
 
 			if ((*first_npc)->fraction == 'E')
 			{
 				if (rand() % 100)
+				{
 					(*first_npc)->move(objects,y_max ,x_max);
+					if ((*first_npc)->pos.x == player.pos.x && (*first_npc)->pos.y == player.pos.y)
+					{
+						obs._HP--;
+						if (obs._HP == 0)
+						{
+							endwin();
+							return (0);
+						}
+					}
+				}
+
 				else
 				{
 						objects.push_back(new NPC(1, 0, 0, (*first_npc)->speed, (*first_npc)->speed_bullet, 'e',
@@ -209,8 +236,20 @@ int main()
 			}
 		}
 		obs.set_time(false);
-		wrefresh(win);
+		int counter = 0;
+		for (std::list<NPC *>::iterator first_npc = objects.begin();
+			 first_npc != objects.end(); first_npc++)
+		{
+			if ((*first_npc)->fraction == 'E')
+			{
+				counter = 137;
+				break;
+			}
 
+		}
+		if (counter == 0)
+			stage_two(win, player, y_max, x_max, obs);
+		wrefresh(win);
 	}
 
 }

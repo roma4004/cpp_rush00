@@ -46,5 +46,5 @@ public:
 
 };
 
-
+void stage_two(WINDOW *win, class NPC player, int y_max, int x_max, class Observer obs);
 #endif //OBSERVER_HPP
