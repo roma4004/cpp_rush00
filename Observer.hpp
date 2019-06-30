@@ -16,6 +16,7 @@
 #include <list>
 #include <iterator>
 #include "NPC.hpp"
+#include <ctime>
 
 
 class Observer
@@ -28,20 +29,20 @@ class Observer
 	bool		_is_pressed_space;
 
 public:
+	Observer();
+	~Observer();
 
 	bool		is_game_over;
+	int _HP;
+	int _Bullets;
+	int _Score;
+	time_t s_seconds;
+	time_t n_seconds;
 
-	bool		isPressedUp		() const;
-	bool		isPressedLeft	() const;
-	bool		isPressedRight	() const;
-	bool		isPressedDown	() const;
-	bool		isPressedQ		() const;
-	bool		isPressedSpace	() const;
 
-	void		event_handler();
-	void		clear_events();
-	void		event_resolver();
-	void		game_cycle();
+
+
+	void	set_time(bool zero);
 
 };
 

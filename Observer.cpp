@@ -12,60 +12,24 @@
 
 #include "Observer.hpp"
 
-void		Observer::clear_events()
+Observer::Observer()
 {
-//	_is_pressed_up		= false;
-//	_is_pressed_left	= false;
-//	_is_pressed_right	= false;
-//	_is_pressed_down	= false;
-//	_is_pressed_q		= false;
-//	_is_pressed_space   = false;
+	this->_Score = 0;
+	this->_HP = 10;
+	this->_Bullets = 200;
+	s_seconds = time (NULL);
 }
 
-void		Observer::game_cycle()
+Observer::~Observer()
 {
-//	event_handler();
-//
-//	//run trough list an call tick to each
-//
-//	//list type
-//	//cur = head
-//	while(cur)
-//	{
-//		cur.tick();
-//		//cur = next
-//	}
-//	//cur = head
-//	while(cur)
-//	{
-//		cur.display();
-//		//cur = next
-//	}
-//	wrefresh(win);
+
 }
 
-void		Observer::event_resolver()
-{
-//	if (_is_pressed_q)
-//	{
-//		endwin();
-//		exit(0);
-//	}
+void Observer::set_time(bool zero) {
+	if (zero == 1)
+	{
+		s_seconds = time(NULL);
+		return;
+	}
+	n_seconds =  time(NULL) - s_seconds;
 }
-
-void		Observer::event_handler()
-{
-//	clear_events();
-//	switch (getch())
-//	{
-//		case 'w': _is_pressed_up	= true; break;
-//		case 'a': _is_pressed_left	= true; break;
-//		case 's': _is_pressed_right	= true; break;
-//		case 'd': _is_pressed_down	= true; break;
-//		case 'q': _is_pressed_q		= true; break;
-//		case ' ': _is_pressed_space	= true; break;
-//	}
-//	event_resolver();
-}
-
-

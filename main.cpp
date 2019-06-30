@@ -53,7 +53,7 @@ int main()
 	WINDOW *win = newwin(0,0,0,0);
 	int y_max, x_max;
 	getmaxyx(stdscr, y_max, x_max);
-    for (int j = 0; j < 500; ++j) {
+    for (int j = 0; j < 50; ++j) {
         objects.push_back(new NPC(10, 0, 10, 2, 1, 'E',
         		 rand() % x_max - 3 + 1,
         		rand() % (y_max / 5) + 1, 's'));
@@ -80,7 +80,8 @@ int main()
 				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "^");
 			if ((*ptr)->fraction == 'e')
 				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "v");
-			mvwprintw(win, (*ptr)->pos.y, 10, "v");
+			mvwprintw(win, y_max - 1, 5, "SCORE %d\tHP : %d\tBullets: %d\tTime: %d",
+					obs._Score, obs._HP, obs._Bullets, obs.n_seconds);
 		}
 		if ((ch = getch()) != ERR)
 		{
@@ -98,10 +99,7 @@ int main()
 			if (ch == 'd')
 			{
 				if (player.pos.x + 1 < x_max - 1)
-				{
-					if (player.pos.x + 1 > 0)
-						player.pos.x += player.speed;
-				}
+					player.pos.x += player.speed;
 			}
 			else if (ch == 'a')
 			{
@@ -122,8 +120,12 @@ int main()
 			}
 			else if (ch == ' ')
 			{
-				objects.push_back(new NPC(1, 0, 0, player.speed, player.speed_bullet, 'p',
-						player.pos.x, player.pos.y, player._direction));
+				if (obs._Bullets >= 0)
+				{
+					objects.push_back(new NPC(1, 0, 0, player.speed, player.speed_bullet, 'p',
+											  player.pos.x, player.pos.y, player._direction));
+					obs._Bullets--;
+				}
 			}
 
 		}
@@ -137,9 +139,8 @@ int main()
 					(*first_npc)->move(objects,y_max ,x_max);
 				else
 				{
-					objects.push_back(new NPC(1, 0, 0, (*first_npc)->speed, (*first_npc)->speed_bullet, 'e',
-											  (*first_npc)->pos.x, (*first_npc)->pos.y, (*first_npc)->_direction));
-
+						objects.push_back(new NPC(1, 0, 0, (*first_npc)->speed, (*first_npc)->speed_bullet, 'e',
+												  (*first_npc)->pos.x, (*first_npc)->pos.y, (*first_npc)->_direction));
 				}
 			}
 			if ((*first_npc)->fraction == 'e')
@@ -162,11 +163,20 @@ int main()
 					{
 						if ((*second_npc)->fraction == 'P')
 						{
-							endwin();
-							return (0);
+							obs._HP--;
+							if (obs._HP == 0)
+							{
+								endwin();
+								return (0);
+							}
+
 						}
-						delete *second_npc;	objects.erase(second_npc);
-						delete *first_npc;	objects.erase(first_npc);
+						else
+						{
+							delete *second_npc;	objects.erase(second_npc);
+							delete *first_npc;	objects.erase(first_npc);
+						}
+
 						break;
 					}
 
@@ -189,6 +199,7 @@ int main()
 					&&   *first_npc            !=  *second_npc
 					&&  (*first_npc)->fraction != (*second_npc)->fraction)
 					{
+						obs._Score++;
 						delete *second_npc;	objects.erase(second_npc);
 						delete *first_npc;	objects.erase(first_npc);
 						break;
@@ -197,7 +208,9 @@ int main()
 				}
 			}
 		}
+		obs.set_time(false);
 		wrefresh(win);
+
 	}
 
 }
