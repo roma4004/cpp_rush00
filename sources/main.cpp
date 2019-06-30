@@ -120,7 +120,7 @@ int main()
 //					delete (*clear_npc);
 //				}
 //				objects.clear();
-			system("leaks a.out"); return 0;
+			 return 0;
 			}
 			move_player(ch, player, y_max, x_max, objects, obs);
 		}

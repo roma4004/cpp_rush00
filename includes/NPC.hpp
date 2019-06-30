@@ -50,9 +50,9 @@ public:
 	char		_direction;
 	float		speed_bullet;
 	float		speed;
-
-protected:
 	unsigned	hp;
+protected:
+
 	unsigned	armor;
 	unsigned	ammunition;
 

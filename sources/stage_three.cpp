@@ -2,23 +2,27 @@
 
 #define SLEEP(milliseconds) usleep( (unsigned long)(milliseconds * 1000.0) );
 
-void stage_two(WINDOW *win, int y_max, int x_max, class Observer obs)
+void stage_three(WINDOW *win, int y_max, int x_max, class Observer obs)
 {
+
 	char ch;
 	std::list<NPC*> objects;
 
 	NPC player(obs._HP,0,obs._Bullets,1,1,'P', x_max / 2, y_max - 10, 'w');
 	objects.push_back(&player);
 
-	for (int j = 0; j < 100; ++j) {
-		objects.push_back(new NPC(10, 0, 10, 2, 1, 'E',
+	for (int j = 0; j < 5; ++j) {
+		objects.push_back(new NPC(1, 0, 10, 2, 1, 'E',
 								  rand() % x_max - 3 + 1,
 								  rand() % (y_max / 5) + 1, 's'));
 		obs.set_time(true);
 	}
+	objects.push_back(new NPC(10, 0, 10, 2, 1, 'B',
+							  rand() % x_max - 3 + 1,
+							  rand() % (y_max / 5) + 1, 'v'));
 	while (1)
 	{
-		SLEEP(30);
+		SLEEP(30)
 		wclear(win);
 		box(win,0, 0);
 		for (std::list<NPC *>::iterator ptr = objects.begin();
@@ -33,6 +37,8 @@ void stage_two(WINDOW *win, int y_max, int x_max, class Observer obs)
 				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "^");
 			if ( (*ptr)->fraction == 'e')
 				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "v");
+			if ( (*ptr)->fraction == 'B')
+				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "$");
 			mvwprintw(win, y_max - 1, 5, "SCORE %d\tHP : %d\tBullets: %d\tTime: %d",
 					  obs._Score, obs._HP, obs._Bullets, obs.n_seconds);
 		}
@@ -48,7 +54,7 @@ void stage_two(WINDOW *win, int y_max, int x_max, class Observer obs)
 //					delete (*clear_npc);
 //				}
 //				objects.clear();
-			exit(0);
+				 exit(0);
 			}
 			move_player(ch, player, y_max, x_max, objects, obs);
 		}
@@ -71,7 +77,7 @@ void stage_two(WINDOW *win, int y_max, int x_max, class Observer obs)
 			 first_npc != objects.end(); first_npc++)
 		{
 
-			if ((*first_npc)->fraction == 'E')
+			if ((*first_npc)->fraction == 'E' || (*first_npc)->fraction == 'B')
 			{
 				if (rand() % 100)
 				{
@@ -110,7 +116,7 @@ void stage_two(WINDOW *win, int y_max, int x_max, class Observer obs)
 						 &&   (*first_npc)->fraction != (*second_npc)->fraction)
 					{
 						delete *first_npc;	objects.erase(first_npc);
-						if ((*second_npc)->fraction == 'P')
+						if ((*second_npc)->fraction == 'P' || (*second_npc)->fraction == 'B')
 						{
 							if (--obs._HP == 0)
 							{
@@ -138,16 +144,22 @@ void stage_two(WINDOW *win, int y_max, int x_max, class Observer obs)
 						&&   *first_npc            !=  *second_npc
 						&&  (*first_npc)->fraction != (*second_npc)->fraction)
 					{
-						++obs._Score;
-						delete *second_npc;	objects.erase(second_npc);
+						(*second_npc)->hp--;
 						delete *first_npc;	objects.erase(first_npc);
+						if ((*second_npc)->hp == 0) {
+							delete *second_npc;
+							objects.erase(second_npc);
+							obs._Score++;
+						}
+
+
+
+
 						break;
 					}
 			}
 		}
 		obs.set_time(false);
-		if(obs.n_seconds == 60)
-			stage_three(win, y_max,x_max, obs);
 		wrefresh(win);
 	}
 	exit(0);
