@@ -38,5 +38,7 @@ public:
 
 };
 
-void stage_two(WINDOW *win, class NPC player, int y_max, int x_max, class Observer obs);
+void stage_two(WINDOW *win, int y_max, int x_max, class Observer obs);
+void move_player(char ch, class NPC& player, int y_max, int x_max,
+						std::list<class NPC*>& objects, Observer &obs);
 #endif //OBSERVER_HPP

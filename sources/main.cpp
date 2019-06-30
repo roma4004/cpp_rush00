@@ -57,11 +57,11 @@ void		move_player(char ch, NPC& player, int y_max, int x_max,
 		player.pos.y -= player.speed;
 	else if (ch == ' ')
 	{
-		if (obs._Bullets >= 0)
+		if (obs._Bullets > 0)
 		{
 			objects.push_back(new NPC(1, 0, 0,
 				player.speed, player.speed_bullet, 'p',
-				player.pos.x, player.pos.y, player._direction));
+				player.pos.x, player.pos.y - 1, player._direction));
 			obs._Bullets--;
 		}
 	}
@@ -134,7 +134,6 @@ int main()
 				delete *first_npc; objects.erase(first_npc);
 				if (--obs._HP == 0)
 				{
-					delete *player;
 					endwin();
 					return (0);
 				}
@@ -155,13 +154,11 @@ int main()
 						delete *first_npc; objects.erase(first_npc);
 						if (--obs._HP == 0)
 						{
-							delete *player;
 							endwin();
 							return (0);
 						}
 					}
 				}
-
 				else
 					objects.push_back(new NPC(1, 0, 0,
 						(*first_npc)->speed, (*first_npc)->speed_bullet, 'e',
@@ -232,7 +229,7 @@ int main()
 
 		}
 		if (counter == 0)
-			stage_two(win, player, y_max, x_max, obs);
+			stage_two(win, y_max, x_max, obs);
 		wrefresh(win);
 	}
 

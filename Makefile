@@ -13,7 +13,7 @@ LIBS_PATH	= libraries
 
 INC = -I includes/
 
-SRC_N = main.cpp NPC.cpp Observer.cpp
+SRC_N = main.cpp NPC.cpp Observer.cpp stage_two.cpp
 
 SRC = $(addprefix ${SRC_PATH}/, $(SRC_N))
 

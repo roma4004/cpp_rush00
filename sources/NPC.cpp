@@ -30,7 +30,7 @@ NPC::NPC(unsigned hp, unsigned armor, unsigned ammo,
 
 NPC::~NPC()
 {
-	std::cout << "NPC deleted!" << std::endl;
+
 }
 
 char	NPC::randomDir()
