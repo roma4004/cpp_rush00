@@ -147,14 +147,16 @@ void stage_three(WINDOW *win, int y_max, int x_max, class Observer obs)
 						(*second_npc)->hp--;
 						delete *first_npc;	objects.erase(first_npc);
 						if ((*second_npc)->hp == 0) {
+							if ((*second_npc)->fraction == 'B'){
+
+							endwin();
+							std::cout << "U lose\t LOOoooooooooool\n";
+							exit (0);
+							}
 							delete *second_npc;
 							objects.erase(second_npc);
 							obs._Score++;
 						}
-
-
-
-
 						break;
 					}
 			}

@@ -88,6 +88,7 @@ int main()
 	//raw();	//put on screen all input include control keys like [ctrl]+[c]
 
 //    refresh();
+	stage_three(win, y_max, x_max, obs);
 	while (!obs.is_game_over)
 	{
 	SLEEP(30);
