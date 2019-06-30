@@ -6,24 +6,6 @@
 //todo: FPS counter
 //todo: list of all object in observer
 
-//pseudo code below (from wolf3d)
-//fps counter
-//static int		prepare_render(t_env *env, t_fps *fps)
-//{
-//	fps->pre_tick = fps->cur_tick;
-//	fps->cur_tick = SDL_GetTicks();
-//	fps->frame_time = (fps->cur_tick - fps->pre_tick) / 1000.0f;
-
-//	fps->value = (u_char)(1.0 / fps->frame_time);
-//	env->cam.move_speed = fps->frame_time * 3;
-//	env->cam.rotate_speed = fps->frame_time * 2;
-//	if ((fps->frame_limit_second) > fps->cur_tick - fps->pre_tick)
-//		SDL_Delay(fps->frame_limit_second - (fps->cur_tick - fps->pre_tick));
-//	event_handler(env, &env->cam, &env->flags);
-//	clear_img_buff(env);
-//	return (1);
-//}
-
 static void		init_all()
 {
 	initscr();
@@ -80,15 +62,12 @@ int main()
 	WINDOW *win = newwin(0,0,0,0);
 	int y_max, x_max;
 	getmaxyx(stdscr, y_max, x_max);
-	for (int j = 0; j < 50; ++j)
+	for (int j = 0; j < rand() % 20 + 5; ++j)
 		objects.push_back(new NPC(10, 0, 10, 2, 1, 'E',
 			rand() % x_max - 3 + 1,
 			rand() % (y_max / 5) + 1, 's'));
 	char ch;
-	//raw();	//put on screen all input include control keys like [ctrl]+[c]
 
-//    refresh();
-	stage_three(win, y_max, x_max, obs);
 	while (!obs.is_game_over)
 	{
 	SLEEP(30);
@@ -106,7 +85,8 @@ int main()
 				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "^");
 			if ( (*ptr)->fraction == 'e')
 				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "v");
-			mvwprintw(win, y_max - 1, 5, "SCORE %d\tHP : %d\tBullets: %d\tTime: %d",
+			mvwprintw(win, y_max - 1, 5, "SCORE %d\tHP : %d\tBullets: "
+								"%d\tTime: %d",
 					obs._Score, obs._HP, obs._Bullets, obs.n_seconds);
 		}
 		if ((ch = getch()) != ERR)

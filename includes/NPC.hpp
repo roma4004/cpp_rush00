@@ -6,7 +6,7 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 22:05:10 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 21:32:10 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 23:09:05 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,14 @@ private:
 public:
 	NPC(unsigned hp, unsigned armor, unsigned ammo,
 		float speed_b, float speed_npc, char fract, int x, int y, char);
+	NPC(const NPC& other);
 	~NPC();
+
+	NPC& operator=(const NPC& other);
+
+
 	t_vec_fl	pos;
 	char		randomDir();
-//	void		display(WINDOW *win);
 	char		fraction;
 	void 		move(std::list<NPC*> objects, int y, int x);
 	char		_direction;
@@ -55,14 +59,6 @@ protected:
 
 	unsigned	armor;
 	unsigned	ammunition;
-
-
-
-	bool		is_obstacle;
-	bool		invinsible;
-	bool		speed_boost;
-	bool		autopilote;
-
 
 	void		shot();
 	void		die();

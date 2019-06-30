@@ -6,7 +6,7 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 22:05:06 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 21:38:19 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 23:11:44 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,29 @@ NPC::NPC(unsigned hp, unsigned armor, unsigned ammo,
 	this->pos = (t_vec_fl){ x, y };
 }
 
+NPC::NPC(const NPC &other)
+{
+	*this = other;
+}
+
 NPC::~NPC()
 {
 
+}
+
+
+NPC &NPC::operator=(const NPC &other)
+{
+	if (this != &other)
+	{
+		_direction		= other._direction;
+		fraction		= other.fraction;
+		pos				= other.pos;
+		hp				= other.hp;
+		speed_bullet	= other.speed_bullet;
+		speed			= other.speed;
+	}
+	return *this;
 }
 
 char	NPC::randomDir()
@@ -94,3 +114,4 @@ void NPC::die()
 {
 	//self destruction
 }
+
