@@ -21,10 +21,6 @@
 #include <ncurses.h>
 #include <unistd.h>
 
-#define WIDTH 50
-#define HEIGHT 50
-
-float map[HEIGHT][WIDTH];
 
 class NPC
 {
@@ -75,5 +71,3 @@ class NPC
 	void		takeDamage(unsigned int damage);
 	void		display();
 };
-
-void print_map();

@@ -24,6 +24,7 @@ class Observer
 	bool		_is_pressed_right;
 	bool		_is_pressed_down;
 	bool		_is_pressed_q;
+	bool        _is_pressed_space;
 
 	void		event_handler();
 	void		game_cycle();
