@@ -6,12 +6,12 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 22:05:06 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/29 22:29:34 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 12:11:35 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "NPC.hpp"
-#include "test.cpp"
+#include "main.cpp"
 
 NPC::NPC(unsigned hp, unsigned armor, unsigned ammo,
 			float speed_b, float speed_npc, char fract, int x, int y)
@@ -40,7 +40,7 @@ NPC::~NPC()
 void NPC::move(float b_x, float b_y)
 {
 	map[pos.x][pos.y] = 0;
-	pos = (t_vec_int) { (int)b_x, (int)b_y };
+	pos = (t_vec_int){ (int)b_x, (int)b_y };
 	map[pos.x][pos.y] = 2;
 }
 
@@ -55,7 +55,7 @@ void NPC::rotate(char dir)
 		case 'a': if (!map[pos.y][pos.x - 1]) move(pos.y, pos.x - 1); break;
 		case 's': if (!map[pos.y + 1][pos.x]) move(pos.y + 1, pos.x); break;
 		case 'd': if (!map[pos.y][pos.x + 1]) move(pos.y, pos.x + 1); break;
-		default: std::cout << "invalid dirrection" << std::endl;
+		default: std::cout << "invalid direction" << std::endl;
 		}
 	}
 	
@@ -83,4 +83,9 @@ void NPC::takeDamage(unsigned int damage)
 		}
 		hp -= damage;
 	}
+}
+
+void NPC::display()
+{
+	//output to canvas
 }

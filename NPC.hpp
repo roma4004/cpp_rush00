@@ -6,7 +6,7 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 22:05:10 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/29 22:14:07 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 12:26:03 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ class NPC
 		int y;
 	}				t_vec_fl;
 
+
+
+
 	t_vec_int	pos;
 	unsigned	hp;
 	unsigned	armor;
@@ -63,11 +66,14 @@ class NPC
 	bool		speed_boost;
 	bool		autopilote;
 
+
+
 	void		move(float b_x,float b_y);
 	void		rotate(char dir);
 	void		shot(char where);
 	void		die();
 	void		takeDamage(unsigned int damage);
+	void		display();
 };
 
 void print_map();
