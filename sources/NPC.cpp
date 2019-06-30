@@ -6,7 +6,7 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 22:05:06 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 16:57:30 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 21:38:19 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ NPC::NPC(unsigned hp, unsigned armor, unsigned ammo,
 	this->_direction = dir;
 
 	this->pos = (t_vec_fl){ x, y };
-
 }
 
 NPC::~NPC()
@@ -38,9 +37,7 @@ char	NPC::randomDir()
 {
 	char variants[4] = { 'w', 'a', 's', 'd' };
 	return (variants[rand() % 4]);
-
 }
-
 
 void NPC::move(std::list<NPC*> objects, int y, int x)
 {
@@ -69,18 +66,11 @@ void NPC::move(std::list<NPC*> objects, int y, int x)
 						.y = pos.y + offset.y };
 }
 
-void NPC::tik(char dir)
-{
-	//move();
-	//shot();
-}
-
-
 void NPC::takeDamage(unsigned int damage)
 {
 	if (damage > 0)
 	{
-		if (armor - damage >= 0)
+		if ((long int)armor - (long int)damage >= 0)
 		{
 			armor -= damage;
 			return;

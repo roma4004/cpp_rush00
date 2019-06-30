@@ -1,35 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Observer.cpp                                       :+:      :+:    :+:   */
+/*   Observer.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/30 12:26:27 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 15:43:28 by dromanic         ###   ########.fr       */
+/*   Created: 2019/06/30 12:26:09 by dromanic          #+#    #+#             */
+/*   Updated: 2019/06/30 21:38:28 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Observer.hpp"
+#ifndef OBSERVER_HPP
+#define OBSERVER_HPP
 
-Observer::Observer()
+#include <list>
+#include <iterator>
+#include <ctime>
+
+#include "NPC.hpp"
+
+
+class Observer
 {
-	this->_Score = 0;
-	this->_HP = 10;
-	this->_Bullets = 200;
-	s_seconds = time (NULL);
-}
 
-Observer::~Observer()
-{
+public:
+	Observer();
+	~Observer();
 
-}
+	bool		is_game_over;
+	int			_HP;
+	int			_Bullets;
+	int			_Score;
+	time_t		s_seconds;
+	time_t		n_seconds;
 
-void Observer::set_time(bool zero) {
-	if (zero == 1)
-	{
-		s_seconds = time(NULL);
-		return;
-	}
-	n_seconds =  time(NULL) - s_seconds;
-}
+	void		set_time(bool zero);
+
+};
+
+
+#endif //OBSERVER_HPP
