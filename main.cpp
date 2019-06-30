@@ -80,6 +80,7 @@ int main()
 				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "^");
 			if ((*ptr)->fraction == 'e')
 				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "v");
+			mvwprintw(win, (*ptr)->pos.y, 10, "v");
 		}
 		if ((ch = getch()) != ERR)
 		{
