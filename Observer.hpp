@@ -13,7 +13,10 @@
 #ifndef OBSERVER_HPP
 #define OBSERVER_HPP
 
+#include <list>
+#include <iterator>
 #include "NPC.hpp"
+
 
 class Observer
 {
@@ -25,7 +28,6 @@ class Observer
 	bool		_is_pressed_space;
 
 public:
-	std::list<NPC>	all_objects;
 
 	bool		is_game_over;
 
@@ -37,6 +39,8 @@ public:
 	bool		isPressedSpace	() const;
 
 	void		event_handler();
+	void		clear_events();
+	void		event_resolver();
 	void		game_cycle();
 
 };

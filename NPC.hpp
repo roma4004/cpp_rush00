@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#ifndef NPC_HPP
+#define NPC_HPP
 
 #include <fstream>
 #include <iostream>
@@ -31,22 +32,22 @@ private:
 	}				t_vec_int;
 
 	typedef struct	s_vector_float {
-		float x;
-		float y;
+		int x;
+		int y;
 	}				t_vec_fl;
 
 
 public:
 	NPC(unsigned hp, unsigned armor, unsigned ammo,
-		float speed_b, float speed_npc, char fract, int x, int y, Observer);
+		float speed_b, float speed_npc, char fract, int x, int y);
 	~NPC();
 
 	t_vec_fl	pos;
+	char		fraction;
 
 	void tik(char a);
 	protected:
 
-	Observer*	_obs;
 	unsigned	hp;
 	unsigned	armor;
 	unsigned	ammunition;
@@ -54,7 +55,7 @@ public:
 	float		speed_bullet;
 	float		speed;
 
-	char		fraction;
+
 	char		_direction;
 
 	bool		is_obstacle;
@@ -69,3 +70,6 @@ public:
 	void		takeDamage(unsigned int damage);
 	void		display();
 };
+
+
+#endif //NPC_HPP

@@ -1,7 +1,5 @@
 #include "NPC.hpp"
 #include "Observer.hpp"
-#include <list>
-#include <iterator>
 #include "Screen.hpp"
 
 #define SLEEP(milliseconds) usleep( (unsigned long)(milliseconds * 1000.0) )
@@ -36,12 +34,12 @@ static void		init_all()
 int main()
 {
     Observer obs;
-    NPC player(10, 0, 10, 2, 1, 'P', 25, 25, obs);
-    std::list<NPC> objects;
+    NPC player(10, 0, 10, 2, 1, 'P', 25, 25);
+    std::list<NPC*> objects;
 
-    objects.push_back(player);
+    objects.push_back(&player);
     for (int j = 0; j < 10; ++j) {
-        objects.push_back(*(new NPC(10, 0, 10, 2, 1, 'E', j + 1, j + 1, obs)));
+        objects.push_back(new NPC(10, 0, 10, 2, 1, 'E', j + 1, j + 1));
     }
     bool shouldQuit = false;
     char ch;
@@ -52,17 +50,58 @@ int main()
 	getmaxyx(stdscr, y, x);
     WINDOW *win = newwin(0,0,0,0);
     refresh();
-    while (!shouldQuit) {
-    	box(win,0, 0);
-		for (std::list<NPC>::iterator ptr = objects.begin();
+    while (!shouldQuit)
+    {
+
+		box(win,0, 0);
+		for (std::list<NPC *>::iterator ptr = objects.begin();
 			ptr != objects.end(); ptr++) {
-			mvwprintw(win, ptr->pos.y, ptr->pos.x, "@%d", x);
+			if ((*ptr)->fraction == 'P')
+				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "@ X: %d | Y: %d", (*ptr)->pos.x, (*ptr)->pos.y);
+			if ((*ptr)->fraction == 'E')
+				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "# %c");
 		}
-    	wrefresh(win);
-		if ((ch = getch() == 'q')) {
-			endwin();
-			return (0);
+
+
+		if ((ch = getch()) != ERR)
+		{
+			if (ch == 'q') {endwin(); return 0;}
+			if (ch == 'd')
+			{
+				wclear(win);
+				if (player.pos.x + 1 < x )
+				{
+					if (player.pos.x + 1 > 0)
+						player.pos.x++;
+				}
+
+
+			}
+			else if (ch == 'a')
+			{
+				wclear(win);
+				if (player.pos.x - 1 > 0)
+					player.pos.x--;
+
+
+			}
+			else if (ch == 's')
+			{
+				wclear(win);
+				if (player.pos.y + 1 < y )
+					player.pos.y++;
+
+			}
+			else if (ch == 'w')
+			{
+				wclear(win);
+				if (player.pos.y - 1 > 0 )
+					player.pos.y--;
+
+			}
+
 		}
+		wrefresh(win);
 	}
 
 }

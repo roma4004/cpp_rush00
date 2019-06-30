@@ -14,11 +14,10 @@
 #include "Observer.hpp"
 
 NPC::NPC(unsigned hp, unsigned armor, unsigned ammo,
-			float speed_b, float speed_npc, char fract, int x, int y, Observer obs)
+			float speed_b, float speed_npc, char fract, int x, int y)
 {
 	this->hp = hp;
 	this->armor = armor;
-	this->_obs = &obs;
 
 	this->ammunition = ammo;
 	this->speed_bullet = speed_b;
@@ -40,7 +39,7 @@ void NPC::moveAI()
 {
 
 }
-
+/*
 void NPC::move()
 {
 	t_vec_fl offset = (t_vec_fl){ 0, 0 };
@@ -58,7 +57,7 @@ void NPC::move()
 //	map[pos.x][pos.y] = 0;
 //	pos = (t_vec_int){(int)b_x, (int)b_y};
 //	map[pos.x][pos.y] = 2;
-}
+}*/
 
 void NPC::tik(char dir)
 {

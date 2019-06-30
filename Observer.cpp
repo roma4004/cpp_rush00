@@ -24,6 +24,8 @@ void		Observer::clear_events()
 
 void		Observer::game_cycle()
 {
+	event_handler();
+
 	//run trough list an call tick to each
 
 	//list type
