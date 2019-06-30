@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.9)
 set(CMAKE_CXX_STANDARD 98)
 project(cpp)
-set(CMAKE_C_FLAGS		"${CMAKE_C_FLAGS} -Wall -Wextra -Werror")
+set(CMAKE_C_FLAGS		"${CMAKE_C_FLAGS} -Wall -Wextra -Werror -lncurses")
 set(SRC_PATH			./)
 set(INC_PATH			./)
 include_directories(	${INC_PATH})

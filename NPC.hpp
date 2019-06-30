@@ -32,19 +32,23 @@ private:
 	}				t_vec_int;
 
 	typedef struct	s_vector_float {
-		int x;
-		int y;
+		float x;
+		float y;
 	}				t_vec_fl;
 
 
 public:
 	NPC(unsigned hp, unsigned armor, unsigned ammo,
-		float speed_b, float speed_npc, char fract, int x, int y);
+		float speed_b, float speed_npc, char fract, int x, int y, char);
 	~NPC();
-
 	t_vec_fl	pos;
+	char		randomDir();
+	void		display(WINDOW *win);
 	char		fraction;
-
+	void 		move(std::list<NPC*> objects, int y, int x);
+	char		_direction;
+	float		speed_bullet;
+	float		speed;
 	void tik(char a);
 	protected:
 
@@ -52,23 +56,21 @@ public:
 	unsigned	armor;
 	unsigned	ammunition;
 
-	float		speed_bullet;
-	float		speed;
 
 
-	char		_direction;
+
+
+
 
 	bool		is_obstacle;
 	bool		invinsible;
 	bool		speed_boost;
 	bool		autopilote;
 
-	void		move();
-	void		moveAI();
+
 	void		shot();
 	void		die();
 	void		takeDamage(unsigned int damage);
-	void		display();
 };
 
 

@@ -14,7 +14,7 @@
 #include "Observer.hpp"
 
 NPC::NPC(unsigned hp, unsigned armor, unsigned ammo,
-			float speed_b, float speed_npc, char fract, int x, int y)
+			float speed_b, float speed_npc, char fract, int x, int y,char dir)
 {
 	this->hp = hp;
 	this->armor = armor;
@@ -23,10 +23,10 @@ NPC::NPC(unsigned hp, unsigned armor, unsigned ammo,
 	this->speed_bullet = speed_b;
 	this->speed = speed_npc;
 	this->fraction = fract;
+	this->_direction = dir;
 
 	this->pos = (t_vec_fl){ x, y };
 
-	std::cout << "NPC created!" << std::endl;
 }
 
 NPC::~NPC()
@@ -40,7 +40,9 @@ char	NPC::randomDir()
 	return (variants[rand() % 4]);
 
 }
-void NPC::move()
+
+
+void NPC::move(std::list<NPC*> objects, int y, int x)
 {
 	t_vec_fl offset = (t_vec_fl){ 0, 0 };
 
@@ -51,6 +53,18 @@ void NPC::move()
 		case 's': offset.y += speed; break;
 		case 'd': offset.x += speed; break;
 	}
+	for (std::list<NPC *>::iterator second_npc = objects.begin();
+		 second_npc != objects.end(); second_npc++)
+	{
+		if ( this->pos.y + offset.y == (*second_npc)->pos.y
+		&&   this->pos.x + offset.x == (*second_npc)->pos.x
+		&&   this                   !=  *second_npc)
+			 return ;
+	}
+	if ((this->pos.y + offset.y >= y - 2 || this->pos.x + offset.x >= x - 2)
+		|| (this->pos.y + offset.y < 1 || this->pos.x + offset.x < 1))
+		return ;
+
 	pos = (t_vec_fl){	.x = pos.x + offset.x,
 						.y = pos.y + offset.y };
 }
@@ -60,6 +74,7 @@ void NPC::tik(char dir)
 	//move();
 	//shot();
 }
+
 
 void NPC::takeDamage(unsigned int damage)
 {
@@ -78,11 +93,6 @@ void NPC::takeDamage(unsigned int damage)
 		}
 		hp -= damage;
 	}
-}
-
-void NPC::display()
-{
-	//output to canvas
 }
 
 void NPC::shot()

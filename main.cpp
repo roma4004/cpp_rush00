@@ -1,6 +1,6 @@
 #include "NPC.hpp"
 #include "Observer.hpp"
-#include "Screen.hpp"
+#include <time.h>
 
 #define SLEEP(milliseconds) usleep( (unsigned long)(milliseconds * 1000.0) )
 
@@ -27,79 +27,174 @@
 static void		init_all()
 {
 	initscr();
+	cbreak(); // don't buffer the TTY
+	noecho(); // don't echo in TTY
+
+	curs_set(0); // hide cursor
+
+	// main window flags
+
+	scrollok(stdscr, FALSE); // dont allow scrolling the window
+
 	keypad(stdscr, TRUE); //f[n]   F1-F12
 	nodelay(stdscr,TRUE);
 }
 
 int main()
 {
+	srand(time(NULL));
     Observer obs;
-    NPC player(10, 0, 10, 2, 1, 'P', 25, 25);
+    NPC player(10, 0, 10, 1, 1, 'P', 25, 25, 'w');
     std::list<NPC*> objects;
 
     objects.push_back(&player);
-    for (int j = 0; j < 10; ++j) {
-        objects.push_back(new NPC(10, 0, 10, 2, 1, 'E', j + 1, j + 1));
+
+    init_all();
+	WINDOW *win = newwin(0,0,0,0);
+	int y_max, x_max;
+	getmaxyx(stdscr, y_max, x_max);
+    for (int j = 0; j < 500; ++j) {
+        objects.push_back(new NPC(10, 0, 10, 2, 1, 'E',
+        		 rand() % x_max - 3 + 1,
+        		rand() % (y_max / 5) + 1, 's'));
     }
     bool shouldQuit = false;
     char ch;
     int i = -1;
 	//raw();	//put on screen all input include control keys like [ctrl]+[c]
-    init_all();
-    int y, x;
-	getmaxyx(stdscr, y, x);
-    WINDOW *win = newwin(0,0,0,0);
-    refresh();
+
+//    refresh();
     while (!shouldQuit)
     {
-
+	SLEEP(30);
+		wclear(win);
 		box(win,0, 0);
 		for (std::list<NPC *>::iterator ptr = objects.begin();
 			ptr != objects.end(); ptr++) {
+			wattroff(win, 1);
 			if ((*ptr)->fraction == 'P')
-				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "@ X: %d | Y: %d", (*ptr)->pos.x, (*ptr)->pos.y);
+				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "@");
 			if ((*ptr)->fraction == 'E')
-				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "# %c");
+				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "#");
+			if ((*ptr)->fraction == 'p')
+				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "^");
+			if ((*ptr)->fraction == 'e')
+				mvwprintw(win, (*ptr)->pos.y, (*ptr)->pos.x, "v");
 		}
-
-
 		if ((ch = getch()) != ERR)
 		{
-			if (ch == 'q') {endwin(); return 0;}
+			if (ch == 'q') {
+				endwin();
+//				int i = -1;
+//				for (std::list<NPC *>::iterator clear_npc = objects.begin();
+//					 clear_npc != objects.end(); clear_npc++) {
+//					std::cout << ++i << std::endl;
+//					delete (*clear_npc);
+//				}
+//				objects.clear();
+			system("leaks a.out"); return 0;
+			}
 			if (ch == 'd')
 			{
-				wclear(win);
-				if (player.pos.x + 1 < x )
+				if (player.pos.x + 1 < x_max - 1)
 				{
 					if (player.pos.x + 1 > 0)
-						player.pos.x++;
+						player.pos.x += player.speed;
 				}
-
-
 			}
 			else if (ch == 'a')
 			{
-				wclear(win);
 				if (player.pos.x - 1 > 0)
-					player.pos.x--;
-
-
+					player.pos.x -= player.speed;
 			}
 			else if (ch == 's')
 			{
-				wclear(win);
-				if (player.pos.y + 1 < y )
-					player.pos.y++;
+				if (player.pos.y + 1 < y_max - 1)
+					player.pos.y += player.speed;
 
 			}
 			else if (ch == 'w')
 			{
-				wclear(win);
-				if (player.pos.y - 1 > 0 )
-					player.pos.y--;
 
+				if (player.pos.y - 1 > 0 )
+					player.pos.y -= player.speed;
+			}
+			else if (ch == ' ')
+			{
+				objects.push_back(new NPC(1, 0, 0, player.speed, player.speed_bullet, 'p',
+						player.pos.x, player.pos.y, player._direction));
 			}
 
+		}
+		for (std::list<NPC *>::iterator first_npc = objects.begin();
+			 first_npc != objects.end(); first_npc++)
+		{
+
+			if ((*first_npc)->fraction == 'E')
+			{
+				if (rand() % 100)
+					(*first_npc)->move(objects,y_max ,x_max);
+				else
+				{
+					objects.push_back(new NPC(1, 0, 0, (*first_npc)->speed, (*first_npc)->speed_bullet, 'e',
+											  (*first_npc)->pos.x, (*first_npc)->pos.y, (*first_npc)->_direction));
+
+				}
+			}
+			if ((*first_npc)->fraction == 'e')
+			{
+				(*first_npc)->pos.y += (*first_npc)->speed;
+				if ((*first_npc)->pos.y > y_max - 2)
+				{
+					NPC *tmp = *first_npc;
+					delete *first_npc;	objects.erase(first_npc);
+					continue ;
+
+				}
+				for (std::list<NPC *>::iterator second_npc = objects.begin();
+					 second_npc != objects.end(); second_npc++)
+				{
+					if ((*first_npc)->pos.y    == (*second_npc)->pos.y
+					&&  (*first_npc)->pos.x    == (*second_npc)->pos.x
+					&&   *first_npc            !=  *second_npc
+					&&  (*first_npc)->fraction != (*second_npc)->fraction)
+					{
+						if ((*second_npc)->fraction == 'P')
+						{
+							endwin();
+							return (0);
+						}
+						delete *second_npc;	objects.erase(second_npc);
+						delete *first_npc;	objects.erase(first_npc);
+						break;
+					}
+
+				}
+			}
+			if ((*first_npc)->fraction == 'p')
+			{
+				(*first_npc)->pos.y -= (*first_npc)->speed;
+				if ((*first_npc)->pos.y < 1)
+				{
+					NPC *tmp = *first_npc;
+					delete *first_npc;	objects.erase(first_npc);
+					continue ;
+				}
+				for (std::list<NPC *>::iterator second_npc = objects.begin();
+					 second_npc != objects.end(); second_npc++)
+				{
+					if ((*first_npc)->pos.y    == (*second_npc)->pos.y
+					&&  (*first_npc)->pos.x    == (*second_npc)->pos.x
+					&&   *first_npc            !=  *second_npc
+					&&  (*first_npc)->fraction != (*second_npc)->fraction)
+					{
+						delete *second_npc;	objects.erase(second_npc);
+						delete *first_npc;	objects.erase(first_npc);
+						break;
+					}
+
+				}
+			}
 		}
 		wrefresh(win);
 	}
