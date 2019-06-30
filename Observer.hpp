@@ -6,7 +6,7 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 12:26:09 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 13:52:33 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 15:43:26 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,28 @@
 
 class Observer
 {
+	bool		_is_pressed_up;
+	bool		_is_pressed_left;
+	bool		_is_pressed_right;
+	bool		_is_pressed_down;
+	bool		_is_pressed_q;
+	bool		_is_pressed_space;
+
 public:
+	std::list<NPC>	all_objects;
+
 	bool		is_game_over;
 
-	bool		pressed_up;
-
-    bool isPressedUp() const;
-
-    bool		pressed_left;
-
-    bool isPressedLeft() const;
-
-    bool		pressed_right;
-
-    bool isPressedRight() const;
-
-    bool		pressed_down;
-
-    bool isPressedDown() const;
-
-    bool		pressed_q;
-
-    bool isPressedQ() const;
-
-    bool        pressed_space;
-
+	bool		isPressedUp		() const;
+	bool		isPressedLeft	() const;
+	bool		isPressedRight	() const;
+	bool		isPressedDown	() const;
+	bool		isPressedQ		() const;
+	bool		isPressedSpace	() const;
 
 	void		event_handler();
 	void		game_cycle();
+
 };
 
 

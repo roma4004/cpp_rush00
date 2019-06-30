@@ -6,7 +6,7 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 12:26:27 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 14:16:26 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 15:43:28 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void		Observer::clear_events()
 {
-	pressed_up		= false;
-	pressed_left	= false;
-	pressed_right	= false;
-	pressed_down	= false;
-	pressed_q		= false;
-	pressed_space   = false;
+	_is_pressed_up		= false;
+	_is_pressed_left	= false;
+	_is_pressed_right	= false;
+	_is_pressed_down	= false;
+	_is_pressed_q		= false;
+	_is_pressed_space   = false;
 }
 
 void		Observer::game_cycle()
@@ -39,15 +39,12 @@ void		Observer::game_cycle()
 		cur.display();
 		//cur = next
 	}
-
-
-
 	wrefresh(win);
 }
 
 void		Observer::event_resolver()
 {
-	if (is_pressed_q)
+	if (_is_pressed_q)
 	{
 		endwin();
 		exit(0);
@@ -63,26 +60,35 @@ void		Observer::event_handler()
 		case 'a': _is_pressed_left	= true; break;
 		case 's': _is_pressed_right	= true; break;
 		case 'd': _is_pressed_down	= true; break;
-		case ' ': _is_pressed_space	= true; break;
 		case 'q': _is_pressed_q		= true; break;
-		default : std::cout << "warning: unknown key " << ch << std::endl;
+		case ' ': _is_pressed_space	= true; break;
 	}
 	event_resolver();
 }
 
 bool Observer::isPressedUp() const {
-    return pressed_up;
+    return _is_pressed_up;
 }
 
 bool Observer::isPressedLeft() const {
-    return pressed_left;
+    return _is_pressed_left;
 }
 
 bool Observer::isPressedRight() const {
-    return pressed_right;
+    return _is_pressed_right;
 }
 
 bool Observer::isPressedDown() const {
-    return pressed_down;
+    return _is_pressed_down;
+}
+
+bool Observer::isPressedQ() const
+{
+	return _is_pressed_q;
+}
+
+bool Observer::isPressedSpace() const
+{
+	return _is_pressed_space;
 }
 

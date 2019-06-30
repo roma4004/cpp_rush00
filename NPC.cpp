@@ -6,7 +6,7 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 22:05:06 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 14:05:55 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 16:06:39 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ NPC::NPC(unsigned hp, unsigned armor, unsigned ammo,
 {
 	this->hp = hp;
 	this->armor = armor;
-    this->_obs = &obs;
+	this->_obs = &obs;
 
 	this->ammunition = ammo;
 	this->speed_bullet = speed_b;
@@ -35,15 +35,24 @@ NPC::~NPC()
 {
 	std::cout << "NPC deleted!" << std::endl;
 }
-/*
+
+
+void NPC::moveAI()
+{
+
+}
+
 void NPC::move()
 {
 	t_vec_fl offset = (t_vec_fl){ 0, 0 };
-
-	if (obs->isPressedUp()		) offset.y -= speed;
-	if (obs->isPressedLeft()	) offset.x -= speed;
-	if (obs->isPressedRight()	) offset.y += speed;
-	if (obs->isPressedDown()	) offset.x += speed;
+	if (fraction == 'P')
+	{
+		if (_obs->isPressedUp())		offset.y -= speed;
+		if (_obs->isPressedLeft())		offset.x -= speed;
+		if (_obs->isPressedRight())		offset.y += speed;
+		if (_obs->isPressedDown())		offset.x += speed;
+	}else
+		moveAI();
 
 	pos = (t_vec_fl){ .x = pos.x + offset.x,
 					  .y = pos.y + offset.y };
@@ -51,10 +60,11 @@ void NPC::move()
 //	pos = (t_vec_int){(int)b_x, (int)b_y};
 //	map[pos.x][pos.y] = 2;
 }
-*/
+
 void NPC::tik(char dir)
 {
 	//move();
+	//shot();
 }
 
 void NPC::takeDamage(unsigned int damage)
@@ -81,7 +91,7 @@ void NPC::display()
 	//output to canvas
 }
 
-void NPC::shot(char where_dir)
+void NPC::shot()
 {
 	//create new instance of bullet(speed_bullet)
 }

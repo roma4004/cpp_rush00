@@ -6,7 +6,7 @@
 /*   By: dromanic <dromanic@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 22:05:10 by dromanic          #+#    #+#             */
-/*   Updated: 2019/06/30 14:05:55 by dromanic         ###   ########.fr       */
+/*   Updated: 2019/06/30 15:48:29 by dromanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 #include <ncurses.h>
 #include <unistd.h>
 #include "Observer.hpp"
-
-
 
 class NPC
 {
@@ -46,7 +44,7 @@ class NPC
 	}				t_vec_fl;
 
 
-	Observer	*_obs;
+	Observer*	_obs;
 	t_vec_fl	pos;
 	unsigned	hp;
 	unsigned	armor;
@@ -64,7 +62,8 @@ class NPC
 	bool		autopilote;
 
 	void		move();
-	void		shot(char where_dir);
+	void		moveAI();
+	void shot();
 	void		die();
 	void		takeDamage(unsigned int damage);
 	void		display();
